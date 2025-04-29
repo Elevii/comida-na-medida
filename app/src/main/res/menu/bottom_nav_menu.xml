@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_menu"
+        android:icon="@drawable/ic_round_add_home"
+        android:title="@string/title_home"/>
+
+    <item
+        android:id="@+id/action_historical"
+        android:icon="@drawable/ic_round_add_home"
+        android:title="Histórico" />
+</menu>
