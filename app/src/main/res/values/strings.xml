@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Comida na Medida</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="label_tipo_alimento">Tipo de Alimento</string>
+    <string name="hint_selecione_tipo_alimento">Selecione o tipo de alimento</string>
+    <string name="label_alimento_cozido">Alimento cozido(g)</string>
+    <string name="label_informe_peso_alimento_cozido">Informe o peso do alimento cozido</string>
+    <string name="label_button_calcular">Calcular</string>
+    <string name="label_title">Calcule a quantidade ideal de proteína</string>
+    <string name="label_result_title">Você vai precisar de:</string>
+    <string name="label_button_salvar">Salvar resultado</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+</resources>
