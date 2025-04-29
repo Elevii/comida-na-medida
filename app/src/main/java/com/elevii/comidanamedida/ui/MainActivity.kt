@@ -2,7 +2,6 @@ package com.elevii.comidanamedida.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.elevii.comidanamedida.R
 import com.elevii.comidanamedida.databinding.ActivityMainBinding
