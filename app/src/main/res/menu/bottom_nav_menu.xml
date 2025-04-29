@@ -4,10 +4,15 @@
     <item
         android:id="@+id/action_menu"
         android:icon="@drawable/ic_round_add_home"
-        android:title="@string/title_home"/>
+        android:title="@string/menu_home"/>
 
     <item
-        android:id="@+id/action_historical"
-        android:icon="@drawable/ic_round_add_home"
-        android:title="Histórico" />
+        android:id="@+id/action_historic"
+        android:icon="@drawable/ic_bar_chart"
+        android:title="@string/menu_historico" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/menu_settings" />
 </menu>

@@ -58,4 +58,12 @@
         <item name="android:textColor">@color/textColorBlack</item>
     </style>
 
+    <style name="BottomNavActiveIndicator" parent="">
+        <item name="android:color">@color/colorPrimary</item>
+        <item name="shapeAppearanceOverlay">@style/BottomNavIndicatorShape</item>
+    </style>
+
+    <style name="BottomNavIndicatorShape" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerSize">16dp</item>
+    </style>
 </resources>

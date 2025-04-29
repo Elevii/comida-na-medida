@@ -16,4 +16,5 @@
     <color name="gray">#757575</color>
     <color name="colorBackgroundInputs">#FBFBF8</color>
     <color name="textColorBlack">#000000</color>
+    <color name="grayIcons">#49454F</color>
 </resources>

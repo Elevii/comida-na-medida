@@ -10,7 +10,9 @@
     <string name="label_result_title">Você vai precisar de:</string>
     <string name="label_button_salvar">Salvar resultado</string>
     <string name="title_activity_main2">MainActivity2</string>
-    <string name="title_home">Home</string>
+    <string name="menu_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="menu_historico">Histórico</string>
+    <string name="menu_settings">Config.</string>
 </resources>
