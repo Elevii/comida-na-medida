@@ -6,6 +6,5 @@ import retrofit2.http.Headers
 
 interface FoodApiService {
     @GET("food")
-    @Headers
     suspend fun getFoods(): List<FoodDto>
 }

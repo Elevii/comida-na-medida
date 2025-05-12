@@ -9,4 +9,6 @@ interface FoodRepository {
     fun getAll(): List<Food>
 
     fun getByUuid(uuid: String): Food
+
+    suspend fun fetchAndSaveFoods()
 }

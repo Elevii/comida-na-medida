@@ -18,17 +18,13 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField(
-            "String",
-            "API_KEY",
-            "\"${project.property("API_KEY").toString().replace("\\", "\\\\")}\""
-        )
 
-        buildConfigField(
-            "String",
-            "API_AUTHORIZATION",
-            "\"${project.property("API_AUTHORIZATION").toString().replace("\\", "\\\\")}\""
-        )
+        val apiKey = project.findProperty("API_KEY") as String? ?: System.getenv("API_KEY") ?: ""
+        val apiAuth = project.findProperty("API_AUTHORIZATION") as String? ?: System.getenv("API_AUTHORIZATION") ?: ""
+
+        buildConfigField("String", "API_KEY", "\"$apiKey\"")
+
+        buildConfigField("String", "API_AUTHORIZATION", "\"$apiAuth\"")
     }
 
     buildTypes {
