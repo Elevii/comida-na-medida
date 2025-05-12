@@ -18,6 +18,17 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField(
+            "String",
+            "API_KEY",
+            "\"${project.property("API_KEY").toString().replace("\\", "\\\\")}\""
+        )
+
+        buildConfigField(
+            "String",
+            "API_AUTHORIZATION",
+            "\"${project.property("API_AUTHORIZATION").toString().replace("\\", "\\\\")}\""
+        )
     }
 
     buildTypes {
@@ -38,6 +49,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -68,4 +80,7 @@ dependencies {
     implementation(libs.navigation.support)
     implementation(libs.navigation.testing)
     implementation(libs.kotlinx.serialization)
+    implementation(libs.squareup.retrofit2)
+    implementation(libs.squareup.retrofit2.converter)
+    implementation(libs.squareup.okhttp3)
 }
