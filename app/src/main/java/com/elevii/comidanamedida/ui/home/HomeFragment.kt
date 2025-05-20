@@ -12,6 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.elevii.comidanamedida.R
 import com.elevii.comidanamedida.databinding.FragmentMenuBinding
+import com.elevii.comidanamedida.domain.model.CookedFoodMeasurement
+import com.elevii.comidanamedida.domain.model.Food
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -22,10 +24,11 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: HomeViewModel by viewModels()
+    private var foodList: List<Food> = emptyList()
+    private var selectedFood: Food? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -39,23 +42,86 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.refreshFoods()
-        }
+        loadFoods()
+        observeFoods()
+        initializeListeners()
+        observeResultCalculateFood()
+    }
 
+    private fun observeResultCalculateFood() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.foods.collect { foodsList ->
-                    val foodNames = foodsList.map { it.name }
-                    val adapter = ArrayAdapter(
-                        requireContext(),
-                        android.R.layout.simple_dropdown_item_1line,
-                        foodNames
-                    )
-                    binding.slFoodType.setAdapter(adapter)
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.measurement.collect { measurement ->
+                    measurement?.let { showResult(it) }
                 }
             }
         }
+    }
+
+    private fun initializeListeners() {
+        binding.slFoodType.setOnItemClickListener { adapterView, view, i, l ->
+            selectedFood = foodList[i]
+        }
+
+        binding.btCalculated.setOnClickListener {
+            validateResult()
+        }
+    }
+
+    private fun observeFoods() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.foods.collect { foodsList ->
+                    foodList = foodsList
+                    loadDropdownFoods(foodsList)
+                }
+            }
+        }
+    }
+
+    private fun loadDropdownFoods(foodsList: List<Food>) {
+        val foodNames = foodsList.map { it.name }
+        val adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_dropdown_item_1line,
+            foodNames
+        )
+        binding.slFoodType.setAdapter(adapter)
+    }
+
+    private fun loadFoods() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.refreshFoods()
+        }
+    }
+
+
+    private fun validateResult() {
+        val cookedText =
+            binding.tlWeightCookedFood.editText?.text?.toString() ?: ""
+        val cooked = cookedText.toDoubleOrNull()
+        val food = selectedFood
+
+        if (food == null) {
+            binding.tlWeightCookedFood.error = null
+            binding.dropdownMenu.error = getString(R.string.error_select_food)
+        } else if (cooked == null) {
+            binding.dropdownMenu.error = null
+            binding.tlWeightCookedFood.error = getString(R.string.error_invalid_weight)
+        } else {
+            binding.dropdownMenu.error = null
+            binding.tlWeightCookedFood.error = null
+            viewModel.calculateMeasurement(cooked, food)
+        }
+    }
+
+    private fun showResult(measurement: CookedFoodMeasurement) {
+        binding.tvResultText.text = getString(
+            R.string.result_format,
+            measurement.weightRaw,
+            selectedFood?.name.orEmpty()
+        )
+        binding.cvResult.visibility = View.VISIBLE
     }
 
     override fun onDestroyView() {

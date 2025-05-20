@@ -98,13 +98,16 @@
             app:layout_constraintTop_toBottomOf="@+id/tl_weight_cooked_food" />
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_result"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="40dp"
             android:backgroundTint="@color/colorBackgroundInputs"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bt_calculated">
+            app:layout_constraintTop_toBottomOf="@+id/bt_calculated"
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

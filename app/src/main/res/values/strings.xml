@@ -15,4 +15,7 @@
     <string name="title_notifications">Notifications</string>
     <string name="menu_historico">Histórico</string>
     <string name="menu_settings">Config.</string>
+    <string name="result_format">%1$.0fg de %2$s</string>
+    <string name="error_select_food">Selecione um tipo de alimento</string>
+    <string name="error_invalid_weight">Informe um peso válido</string>
 </resources>
