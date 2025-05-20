@@ -4,6 +4,7 @@ import com.elevii.comidanamedida.domain.repository.FoodRepository
 import com.elevii.comidanamedida.domain.useCase.food.GetAllFoodsUseCase
 import com.elevii.comidanamedida.domain.useCase.food.GetFoodByUuidUseCase
 import com.elevii.comidanamedida.domain.useCase.food.InsertFoodUseCase
+import com.elevii.comidanamedida.domain.useCase.food.RefreshFoodsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,4 +29,8 @@ object UseCaseFoodModule {
         repository: FoodRepository
     ): GetFoodByUuidUseCase = GetFoodByUuidUseCase(repository)
 
+    @Provides
+    fun provideRefreshFoodsUseCaseUseCase(
+        repository: FoodRepository
+    ): RefreshFoodsUseCase = RefreshFoodsUseCase(repository)
 }

@@ -65,8 +65,8 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(libs.room)
-    annotationProcessor(libs.room.annotation)
-    kapt(libs.room.ktx)
+    kapt(libs.room.annotation)
+    //kapt(libs.room.ktx)
 
     implementation(libs.dagger.hilt)
     kapt(libs.dagger.hilt.ksp)

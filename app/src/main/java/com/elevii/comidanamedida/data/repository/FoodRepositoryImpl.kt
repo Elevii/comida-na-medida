@@ -7,6 +7,8 @@ import com.elevii.comidanamedida.data.remote.api.FoodApiService
 import com.elevii.comidanamedida.data.remote.model.toDomain
 import com.elevii.comidanamedida.domain.model.Food
 import com.elevii.comidanamedida.domain.repository.FoodRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class FoodRepositoryImpl @Inject constructor(
@@ -14,19 +16,21 @@ class FoodRepositoryImpl @Inject constructor(
     private val api: FoodApiService
 ) : FoodRepository {
 
-    override fun insert(food: Food) {
+    override suspend fun insert(food: Food) {
         dao.insert(food.toEntity())
     }
 
-    override fun getAll(): List<Food> {
-        return dao.getAll().map { it.toDomain() }
+    override fun getAll(): Flow<List<Food>> {
+        return dao.getAll().map { list ->
+            list.map { it.toDomain() }
+        }
     }
 
     override fun getByUuid(uuid: String): Food {
         return dao.getByUuid(uuid).toDomain()
     }
 
-    override suspend fun fetchAndSaveFoods() {
+    override suspend fun refreshFoods() {
         try {
             val foodsDto = api.getFoods()
             val foodsDomain = foodsDto.map { it.toDomain() }
@@ -35,7 +39,9 @@ class FoodRepositoryImpl @Inject constructor(
                 dao.insert(food.toEntity())
             }
         } catch (e: Exception) {
+            System.out.println("fdfdf " + e.printStackTrace())
             //TODO: implementar erro
         }
     }
+
 }

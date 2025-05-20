@@ -7,7 +7,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import jakarta.inject.Singleton
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -17,7 +16,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 object NetworkModule {
 
     @Provides
-    @Singleton
     fun provideOkHttpClient(
         authInterceptor: AuthInterceptor,
         apiKeyInterceptor: ApiKeyInterceptor
@@ -38,7 +36,6 @@ object NetworkModule {
     }
 
     @Provides
-    @Singleton
     fun provideFoodApiService(retrofit: Retrofit): FoodApiService {
         return retrofit.create(FoodApiService::class.java)
     }
