@@ -2,6 +2,7 @@ package com.elevii.comidanamedida.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.elevii.comidanamedida.data.exceptions.ErrorHandler
 import com.elevii.comidanamedida.domain.model.CookedFoodMeasurement
 import com.elevii.comidanamedida.domain.model.Food
 import com.elevii.comidanamedida.domain.useCase.food.GetAllFoodsUseCase
@@ -48,8 +49,9 @@ class HomeViewModel @Inject constructor(
     private fun refreshFoods() = viewModelScope.launch {
         try {
             refreshFoodsUseCase()
-        } catch (e: Exception) {
-            _foods.value = Resource.Error(e.message.toString())
+        } catch (e: Throwable) {
+            val connectionError = ErrorHandler.handleError(e)
+            _foods.value = Resource.Error(ErrorHandler.customMessageError(connectionError))
         }
     }
 

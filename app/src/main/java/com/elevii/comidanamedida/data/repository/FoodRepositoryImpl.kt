@@ -31,16 +31,11 @@ class FoodRepositoryImpl @Inject constructor(
     }
 
     override suspend fun refreshFoods() {
-        try {
-            val foodsDto = api.getFoods()
-            val foodsDomain = foodsDto.map { it.toDomain() }
+        val foodsDto = api.getFoods()
+        val foodsDomain = foodsDto.map { it.toDomain() }
 
-            foodsDomain.forEach { food ->
-                dao.insert(food.toEntity())
-            }
-        } catch (e: Exception) {
-            System.out.println("fdfdf " + e.printStackTrace())
-            //TODO: implementar erro
+        foodsDomain.forEach { food ->
+            dao.insert(food.toEntity())
         }
     }
 

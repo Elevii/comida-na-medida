@@ -1,5 +1,8 @@
 package com.elevii.comidanamedida.ui.home
 
+import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,12 +15,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.elevii.comidanamedida.R
+import com.elevii.comidanamedida.databinding.DialogAlertErrorBinding
 import com.elevii.comidanamedida.databinding.FragmentMenuBinding
 import com.elevii.comidanamedida.domain.model.CookedFoodMeasurement
 import com.elevii.comidanamedida.domain.model.Food
 import com.elevii.comidanamedida.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import androidx.core.graphics.drawable.toDrawable
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -96,7 +101,10 @@ class HomeFragment : Fragment() {
                             foodList = resource.data ?: emptyList()
                             loadDropdownFoods(foodList)
                         }
-                        is Resource.Error -> hideLoading()
+                        is Resource.Error -> {
+                            hideLoading()
+                            showError(resource.message.toString())
+                        }
                     }
                 }
             }
@@ -155,8 +163,27 @@ class HomeFragment : Fragment() {
         binding.cvResult.visibility = View.VISIBLE
     }
 
+    private fun showError(message: String) {
+        val bindingDialogError = DialogAlertErrorBinding.inflate(LayoutInflater.from(context))
+
+        val dialog = AlertDialog.Builder(context)
+            .setView(bindingDialogError.root)
+            .setCancelable(false)
+            .create()
+
+        dialog.window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
+
+        bindingDialogError.tvErrorDescription.text = message
+        bindingDialogError.btErrorConfirm.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 }

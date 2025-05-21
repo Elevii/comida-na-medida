@@ -19,4 +19,6 @@
     <string name="result_format">%1$.0fg de %2$s</string>
     <string name="error_select_food">Selecione um tipo de alimento</string>
     <string name="error_invalid_weight">Informe um peso válido</string>
+    <string name="error_title">Ops... Algo deu errado</string>
+    <string name="confirm_button">OK</string>
 </resources>
