@@ -35,4 +35,4 @@ jobs:
         
       - name: Run Detekt
         run: ./gradlew detekt
-        if: sucess() || failure()
+        if: success() || failure()
