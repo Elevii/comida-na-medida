@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/menuFragment"
-        android:name="com.elevii.comidanamedida.ui.MenuFragment"
+        android:name="com.elevii.comidanamedida.ui.home.HomeFragment"
         android:label="Menu"
         tools:layout="@layout/fragment_menu" />
     <fragment
         android:id="@+id/historicFragment"
-        android:name="com.elevii.comidanamedida.ui.HistoricFragment"
+        android:name="com.elevii.comidanamedida.ui.historic.HistoricFragment"
         android:label="Histórico"
         tools:layout="@layout/fragment_historic" />
 </navigation>

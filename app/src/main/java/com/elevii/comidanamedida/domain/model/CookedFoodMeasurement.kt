@@ -8,8 +8,4 @@ class CookedFoodMeasurement(
     val weightCooked: Double,
     val calculationDate: LocalDateTime,
     val uuidFood: String
-) {
-    fun calculatedFoodIndex(cookingIndex: Double) {
-        weightRaw = (weightCooked * cookingIndex)
-    }
-}
+)

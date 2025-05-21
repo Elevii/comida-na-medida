@@ -18,6 +18,13 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val apiKey = project.findProperty("API_KEY") as String? ?: System.getenv("API_KEY") ?: ""
+        val apiAuth = project.findProperty("API_AUTHORIZATION") as String? ?: System.getenv("API_AUTHORIZATION") ?: ""
+
+        buildConfigField("String", "API_KEY", "\"$apiKey\"")
+
+        buildConfigField("String", "API_AUTHORIZATION", "\"$apiAuth\"")
     }
 
     buildTypes {
@@ -38,6 +45,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -57,8 +65,8 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(libs.room)
-    annotationProcessor(libs.room.annotation)
-    kapt(libs.room.ktx)
+    kapt(libs.room.annotation)
+    //kapt(libs.room.ktx)
 
     implementation(libs.dagger.hilt)
     kapt(libs.dagger.hilt.ksp)
@@ -68,4 +76,7 @@ dependencies {
     implementation(libs.navigation.support)
     implementation(libs.navigation.testing)
     implementation(libs.kotlinx.serialization)
+    implementation(libs.squareup.retrofit2)
+    implementation(libs.squareup.retrofit2.converter)
+    implementation(libs.squareup.okhttp3)
 }

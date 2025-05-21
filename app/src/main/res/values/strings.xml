@@ -9,8 +9,16 @@
     <string name="label_title">Calcule a quantidade ideal de proteína</string>
     <string name="label_result_title">Você vai precisar de:</string>
     <string name="label_button_salvar">Salvar resultado</string>
+    <string name="label_button_clear">Limpar resultado</string>
     <string name="title_activity_main2">MainActivity2</string>
-    <string name="title_home">Home</string>
+    <string name="menu_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="menu_historico">Histórico</string>
+    <string name="menu_settings">Config.</string>
+    <string name="result_format">%1$.0fg de %2$s</string>
+    <string name="error_select_food">Selecione um tipo de alimento</string>
+    <string name="error_invalid_weight">Informe um peso válido</string>
+    <string name="error_title">Ops... Algo deu errado</string>
+    <string name="confirm_button">OK</string>
 </resources>

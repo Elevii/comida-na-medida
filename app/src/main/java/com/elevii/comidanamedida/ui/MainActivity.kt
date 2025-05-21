@@ -1,11 +1,14 @@
 package com.elevii.comidanamedida.ui
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.ui.setupWithNavController
 import com.elevii.comidanamedida.R
 import com.elevii.comidanamedida.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy {
@@ -28,10 +31,16 @@ class MainActivity : AppCompatActivity() {
 
                     true
                 }
-                R.id.action_historical -> {
-                    navController.navigate(R.id.historicFragment)
+                R.id.action_historic -> {
+                    Toast.makeText(this, "Essa funcionalidade estará disponível em breve!", Toast.LENGTH_LONG).show()
+//                    navController.navigate(R.id.historicFragment)
 
-                    true
+                    false
+                }
+                R.id.action_settings -> {
+                    Toast.makeText(this, "Disponível em breve!", Toast.LENGTH_SHORT).show()
+
+                    false
                 }
                 else -> false
             }

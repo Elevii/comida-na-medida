@@ -35,6 +35,10 @@
         <item name="android:textColor">@color/colorOnPrimary</item>
     </style>
 
+    <style name="Widget.App.ClearButton" parent="Widget.Material3.Button.TextButton">
+        <item name="cornerRadius">@dimen/corner</item>
+        <item name="android:textColor">@color/colorSecondary</item>
+    </style>
 
     <style name="Widget.App.CustomDropDownStyle" parent="Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
         <item name="boxBackgroundColor">@color/colorBackgroundInputs</item>
@@ -44,7 +48,7 @@
         <item name="boxCornerRadiusBottomEnd">@dimen/corner</item>
         <item name="boxStrokeColor">@color/colorPrimary</item>
         <item name="hintTextColor">@color/gray</item>
-        <item name="android:textColor">@color/textColorBlack</item>
+        <item name="android:textColor">@color/textColor</item>
     </style>
 
     <style name="Widget.App.CustomTextInput" parent="Widget.Material3.TextInputLayout.OutlinedBox">
@@ -55,7 +59,15 @@
         <item name="boxCornerRadiusBottomEnd">@dimen/corner</item>
         <item name="boxStrokeColor">@color/colorPrimary</item>
         <item name="hintTextColor">@color/gray</item>
-        <item name="android:textColor">@color/textColorBlack</item>
+        <item name="android:textColor">@color/textColor</item>
     </style>
 
+    <style name="BottomNavActiveIndicator" parent="">
+        <item name="android:color">@color/colorPrimary</item>
+        <item name="shapeAppearanceOverlay">@style/BottomNavIndicatorShape</item>
+    </style>
+
+    <style name="BottomNavIndicatorShape" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerSize">16dp</item>
+    </style>
 </resources>

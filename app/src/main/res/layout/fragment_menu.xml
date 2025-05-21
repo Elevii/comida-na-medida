@@ -4,14 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="@dimen/padding_layout_horizontal"
     android:fillViewport="true"
-    tools:context=".ui.MenuFragment">
+    android:paddingHorizontal="@dimen/spacing_20"
+    tools:context=".ui.home.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/padding_layout_vertical">
+        android:layout_marginVertical="@dimen/spacing_30">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorPrimary"/>
 
         <TextView
             android:id="@+id/tv_title"
@@ -20,6 +31,7 @@
             android:fontFamily="@font/poppins_extrabold"
             android:text="@string/label_title"
             android:textAlignment="center"
+            android:layout_marginTop="@dimen/spacing_20"
             android:textSize="@dimen/text_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +63,10 @@
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/sl_food_type"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:enabled="false"
+                android:textColor="@color/textColor"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -59,7 +74,7 @@
             android:id="@+id/tv_cooked_quantity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="@dimen/spacing_30"
             android:fontFamily="@font/poppins_medium"
             android:text="@string/label_alimento_cozido"
             android:textSize="@dimen/text_label"
@@ -80,7 +95,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -95,18 +111,21 @@
             app:layout_constraintTop_toBottomOf="@+id/tl_weight_cooked_food" />
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_result"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="40dp"
-            android:backgroundTint="#FBFBF8"
+            android:backgroundTint="@color/colorBackgroundInputs"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bt_calculated">
+            app:layout_constraintTop_toBottomOf="@+id/bt_calculated"
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp">
+                android:padding="@dimen/spacing_20">
 
                 <TextView
                     android:id="@+id/tv_result_label"
@@ -134,7 +153,7 @@
                     tools:text="300g de carne" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/bt_sabe_result"
+                    android:id="@+id/bt_save_result"
                     style="@style/Widget.App.ResultButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -144,6 +163,16 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_result_text" />
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/bt_clear_result"
+                    style="@style/Widget.App.ClearButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/label_button_clear"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bt_save_result" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
