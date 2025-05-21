@@ -15,9 +15,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
       - name: Run a one-line script
         run: echo Hello, world!
+        
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+          
+      - name: Grant permissions to gradlew
+        run: chmod +x gradlew   
+        
+      - name: Build Debug Apk
+        run: ./gradle assembleDebug --no-build-cache --no-configuration-cache 
+     
+      - name: Run unit tests
+        run: ./gradle testDebugUnitTest
