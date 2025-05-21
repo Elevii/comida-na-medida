@@ -17,11 +17,9 @@ import com.elevii.comidanamedida.data.local.entity.FoodEntity
     version = 1,
     exportSchema = true
 )
-
 @TypeConverters(Converter::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun foodDao(): FoodDao
     abstract fun cookedFoodMeasurementDao(): CookedFoodMeasurementDao
-
 }

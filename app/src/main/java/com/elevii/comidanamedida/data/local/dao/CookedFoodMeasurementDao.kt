@@ -24,5 +24,4 @@ interface CookedFoodMeasurementDao {
 
     @Query("DELETE FROM CookedFoodMeasurementEntity")
     fun removeAll()
-
 }

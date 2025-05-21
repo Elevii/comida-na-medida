@@ -19,4 +19,3 @@ class AuthInterceptor @Inject constructor() : Interceptor {
         return chain.proceed(request)
     }
 }
-

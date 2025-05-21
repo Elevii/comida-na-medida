@@ -1,6 +1,6 @@
 package com.elevii.comidanamedida.data.exceptions
 
-class ConnectionException (
+class ConnectionException(
     val typeError: TypeErrorConnection,
     override val message: String,
     val codeHttp: Int? = null,

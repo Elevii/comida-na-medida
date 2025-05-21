@@ -14,7 +14,7 @@ interface FoodDao {
     suspend fun insert(vararg food: FoodEntity)
 
     @Query("SELECT * FROM FoodEntity")
-    fun getAll() : Flow<List<FoodEntity>>
+    fun getAll(): Flow<List<FoodEntity>>
 
     @Query("SELECT * FROM FoodEntity WHERE uuid = :uuid")
     fun getByUuid(uuid: String): FoodEntity

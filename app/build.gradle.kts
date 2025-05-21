@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.dagger.hilt)
     kotlin("plugin.serialization") version "2.0.21"
     id("io.gitlab.arturbosch.detekt")
+    id("org.jlleitschuh.gradle.ktlint")
 }
 
 android {
@@ -67,7 +68,7 @@ dependencies {
 
     implementation(libs.room)
     kapt(libs.room.annotation)
-    //kapt(libs.room.ktx)
+    // kapt(libs.room.ktx)
 
     implementation(libs.dagger.hilt)
     kapt(libs.dagger.hilt.ksp)

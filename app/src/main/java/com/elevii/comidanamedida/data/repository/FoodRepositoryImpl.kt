@@ -38,5 +38,4 @@ class FoodRepositoryImpl @Inject constructor(
             dao.insert(food.toEntity())
         }
     }
-
 }

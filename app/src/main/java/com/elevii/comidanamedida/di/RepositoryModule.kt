@@ -22,5 +22,4 @@ abstract class RepositoryModule {
     abstract fun bindCookedFoodMeasurementRepository(
         impl: CookedFoodMeasurementImpl
     ): CookedFoodMeasurementRepository
-
 }

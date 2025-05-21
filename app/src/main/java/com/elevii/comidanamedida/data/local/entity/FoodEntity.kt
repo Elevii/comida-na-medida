@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.elevii.comidanamedida.domain.model.Food
 
 @Entity
-data class FoodEntity (
+data class FoodEntity(
     @PrimaryKey
     val uuid: String,
     val name: String,

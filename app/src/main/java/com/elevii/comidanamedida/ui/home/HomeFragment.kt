@@ -3,12 +3,13 @@ package com.elevii.comidanamedida.ui.home
 import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.graphics.drawable.toDrawable
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -21,7 +22,6 @@ import com.elevii.comidanamedida.domain.model.Food
 import com.elevii.comidanamedida.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import androidx.core.graphics.drawable.toDrawable
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -38,7 +38,8 @@ class HomeFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMenuBinding.inflate(inflater, container, false)
@@ -73,7 +74,7 @@ class HomeFragment : Fragment() {
         }
 
         binding.btSaveResult.setOnClickListener {
-             Toast.makeText(
+            Toast.makeText(
                 requireContext(),
                 "Essa funcionalidade estará disponível em breve!",
                 Toast.LENGTH_LONG
@@ -184,5 +185,4 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

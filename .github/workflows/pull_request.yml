@@ -36,3 +36,6 @@ jobs:
       - name: Run Detekt
         run: ./gradlew detekt
         if: success() || failure()
+
+      - name: Run Ktlint Check
+        run: ./gradlew ktlintCheck
