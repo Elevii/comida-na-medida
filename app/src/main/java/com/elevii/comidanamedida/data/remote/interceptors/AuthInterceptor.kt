@@ -11,7 +11,7 @@ class AuthInterceptor @Inject constructor() : Interceptor {
         val token = BuildConfig.API_AUTHORIZATION
 
         val requestBuilder = originalRequest.newBuilder()
-        token?.let {
+        token.let {
             requestBuilder.addHeader("Authorization", "Bearer $it")
         }
 
@@ -19,3 +19,4 @@ class AuthInterceptor @Inject constructor() : Interceptor {
         return chain.proceed(request)
     }
 }
+

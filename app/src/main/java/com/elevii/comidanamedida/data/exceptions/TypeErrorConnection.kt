@@ -1,6 +1,6 @@
 package com.elevii.comidanamedida.data.exceptions
 
-enum class TipoErroConexao {
+enum class TypeErrorConnection {
     TIMEOUT,
     DNS,
     SEM_INTERNET,
