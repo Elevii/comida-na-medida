@@ -1,3 +1,5 @@
+import java.util.Base64
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -29,9 +31,31 @@ android {
         buildConfigField("String", "API_AUTHORIZATION", "\"$apiAuth\"")
     }
 
+    signingConfigs {
+        create("release") {
+            val keystoreBase64Env = System.getenv("KEYSTORE_BASE64") ?: ""
+            val keystorePasswordEnv = System.getenv("KEYSTORE_PASSWORD") ?: ""
+            val keyAliasEnv = System.getenv("KEY_ALIAS") ?: ""
+            val keyPasswordEnv = System.getenv("KEY_PASSWORD") ?: ""
+
+            val keystoreFile = layout.buildDirectory.file("keystore.jks").get().asFile
+
+            if (!keystoreFile.exists() && keystoreBase64Env.isNotEmpty()) {
+                val decoded = Base64.getDecoder().decode(keystoreBase64Env)
+                keystoreFile.writeBytes(decoded)
+            }
+
+            storeFile = keystoreFile
+            storePassword = keystorePasswordEnv
+            keyAlias = keyAliasEnv
+            keyPassword = keyPasswordEnv
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
