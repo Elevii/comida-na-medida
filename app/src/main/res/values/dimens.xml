@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="corner">12dp</dimen>
-    <dimen name="padding_layout_horizontal">20dp</dimen>
-    <dimen name="padding_layout_vertical">30dp</dimen>
-
+    <dimen name="spacing_20">20dp</dimen>
+    <dimen name="spacing_30">30dp</dimen>
+    <dimen name="spacing_10">10dp</dimen>
     <!-- text -->
     <dimen name="text_label">15sp</dimen>
     <dimen name="text_title">30sp</dimen>

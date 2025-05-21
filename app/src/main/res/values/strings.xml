@@ -9,6 +9,7 @@
     <string name="label_title">Calcule a quantidade ideal de proteína</string>
     <string name="label_result_title">Você vai precisar de:</string>
     <string name="label_button_salvar">Salvar resultado</string>
+    <string name="label_button_clear">Limpar resultado</string>
     <string name="title_activity_main2">MainActivity2</string>
     <string name="menu_home">Home</string>
     <string name="title_dashboard">Dashboard</string>

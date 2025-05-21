@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -14,6 +15,7 @@ import com.elevii.comidanamedida.R
 import com.elevii.comidanamedida.databinding.FragmentMenuBinding
 import com.elevii.comidanamedida.domain.model.CookedFoodMeasurement
 import com.elevii.comidanamedida.domain.model.Food
+import com.elevii.comidanamedida.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -42,7 +44,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        loadFoods()
         observeFoods()
         initializeListeners()
         observeResultCalculateFood()
@@ -66,17 +67,54 @@ class HomeFragment : Fragment() {
         binding.btCalculated.setOnClickListener {
             validateResult()
         }
+
+        binding.btSaveResult.setOnClickListener {
+             Toast.makeText(
+                requireContext(),
+                "Essa funcionalidade estará disponível em breve!",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+
+        binding.btClearResult.setOnClickListener {
+            binding.cvResult.visibility = View.GONE
+            binding.slFoodType.text.clear()
+            binding.tlWeightCookedFood.editText?.text?.clear()
+            selectedFood = null
+            viewModel.clearMeasurement()
+        }
     }
 
     private fun observeFoods() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.foods.collect { foodsList ->
-                    foodList = foodsList
-                    loadDropdownFoods(foodsList)
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.foods.collect { resource ->
+                    when (resource) {
+                        is Resource.Loading -> showLoading()
+                        is Resource.Success -> {
+                            hideLoading()
+                            foodList = resource.data ?: emptyList()
+                            loadDropdownFoods(foodList)
+                        }
+                        is Resource.Error -> hideLoading()
+                    }
                 }
             }
         }
+    }
+
+    private fun showLoading() {
+        binding.progressBar.visibility = View.VISIBLE
+        binding.dropdownMenu.isEnabled = false
+        binding.tlWeightCookedFood.isEnabled = false
+        binding.btCalculated.isEnabled = false
+    }
+
+    private fun hideLoading() {
+        binding.progressBar.visibility = View.GONE
+        binding.dropdownMenu.isEnabled = true
+        binding.tlWeightCookedFood.isEnabled = true
+        binding.btCalculated.isEnabled = true
     }
 
     private fun loadDropdownFoods(foodsList: List<Food>) {
@@ -88,13 +126,6 @@ class HomeFragment : Fragment() {
         )
         binding.slFoodType.setAdapter(adapter)
     }
-
-    private fun loadFoods() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.refreshFoods()
-        }
-    }
-
 
     private fun validateResult() {
         val cookedText =
