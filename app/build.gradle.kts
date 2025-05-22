@@ -105,6 +105,7 @@ dependencies {
     implementation(libs.squareup.retrofit2)
     implementation(libs.squareup.retrofit2.converter)
     implementation(libs.squareup.okhttp3)
+    implementation(libs.androidx.splashscreen)
 }
 
 subprojects {
