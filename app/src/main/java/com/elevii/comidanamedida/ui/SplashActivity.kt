@@ -7,9 +7,9 @@ import androidx.activity.ComponentActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.elevii.comidanamedida.R
 
-class SplashActivity : ComponentActivity() {
-    private val splashTimeOut: Long = 3000
+private const val SPLASH_TIMEOUT_MS = 3000L
 
+class SplashActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -22,6 +22,6 @@ class SplashActivity : ComponentActivity() {
         window.decorView.postDelayed({
             startActivity(Intent(this, MainActivity::class.java))
             finish()
-        }, splashTimeOut)
+        }, SPLASH_TIMEOUT_MS)
     }
 }
