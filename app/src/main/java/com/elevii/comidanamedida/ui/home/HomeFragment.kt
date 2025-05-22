@@ -1,11 +1,13 @@
 package com.elevii.comidanamedida.ui.home
 
 import android.app.AlertDialog
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.graphics.drawable.toDrawable
@@ -66,11 +68,13 @@ class HomeFragment : Fragment() {
 
     private fun initializeListeners() {
         binding.slFoodType.setOnItemClickListener { adapterView, view, i, l ->
+            clearFoodSelected()
             selectedFood = foodList[i]
         }
 
         binding.btCalculated.setOnClickListener {
             validateResult()
+            closeKeyboard()
         }
 
         binding.btSaveResult.setOnClickListener {
@@ -82,12 +86,24 @@ class HomeFragment : Fragment() {
         }
 
         binding.btClearResult.setOnClickListener {
-            binding.cvResult.visibility = View.GONE
             binding.slFoodType.text.clear()
-            binding.tlWeightCookedFood.editText?.text?.clear()
-            selectedFood = null
-            viewModel.clearMeasurement()
+            clearFoodSelected()
         }
+    }
+
+    private fun closeKeyboard() {
+        binding.tlWeightCookedFood.clearFocus()
+        val imm = requireContext().getSystemService(
+            Context.INPUT_METHOD_SERVICE
+        ) as InputMethodManager
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
+    }
+
+    private fun clearFoodSelected() {
+        binding.cvResult.visibility = View.GONE
+        binding.tlWeightCookedFood.editText?.text?.clear()
+        selectedFood = null
+        viewModel.clearMeasurement()
     }
 
     private fun observeFoods() {
