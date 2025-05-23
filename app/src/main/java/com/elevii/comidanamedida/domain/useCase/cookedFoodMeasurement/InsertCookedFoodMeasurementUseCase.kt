@@ -6,15 +6,14 @@ import java.time.LocalDateTime
 import java.util.UUID
 
 class InsertCookedFoodMeasurementUseCase(private val repository: CookedFoodMeasurementRepository) {
-    operator fun invoke(
-        uuid: String?,
+    suspend operator fun invoke(
         weightRaw: Double,
         weightCooked: Double,
         uuidFood: String
     ) {
         repository.insert(
             CookedFoodMeasurement(
-                uuid = if (uuid.isNullOrBlank()) UUID.randomUUID().toString() else uuid,
+                uuid =  UUID.randomUUID().toString() ,
                 weightRaw = weightRaw,
                 weightCooked = weightCooked,
                 calculationDate = LocalDateTime.now(),

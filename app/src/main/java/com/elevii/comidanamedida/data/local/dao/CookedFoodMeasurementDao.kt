@@ -11,17 +11,17 @@ import com.elevii.comidanamedida.data.local.entity.CookedFoodMeasurementEntity
 interface CookedFoodMeasurementDao {
 
     @Query("SELECT * FROM CookedFoodMeasurementEntity ORDER BY calculationDate")
-    fun getAll(): List<CookedFoodMeasurementEntity>
+    suspend fun getAll(): List<CookedFoodMeasurementEntity>
 
     @Query("SELECT * FROM CookedFoodMeasurementEntity WHERE uuid = :uuid")
-    fun getByUuid(uuid: String): CookedFoodMeasurementEntity
+    suspend fun getByUuid(uuid: String): CookedFoodMeasurementEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vararg cookedFoodMeasurementFood: CookedFoodMeasurementEntity)
+    suspend fun insert(vararg cookedFoodMeasurementFood: CookedFoodMeasurementEntity)
 
     @Delete
-    fun remove(cookedFoodMeasurementFood: CookedFoodMeasurementEntity)
+    suspend fun remove(cookedFoodMeasurementFood: CookedFoodMeasurementEntity)
 
     @Query("DELETE FROM CookedFoodMeasurementEntity")
-    fun removeAll()
+    suspend fun removeAll()
 }

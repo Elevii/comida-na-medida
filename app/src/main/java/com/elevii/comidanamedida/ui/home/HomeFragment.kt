@@ -21,6 +21,7 @@ import com.elevii.comidanamedida.databinding.DialogAlertErrorBinding
 import com.elevii.comidanamedida.databinding.FragmentMenuBinding
 import com.elevii.comidanamedida.domain.model.CookedFoodMeasurement
 import com.elevii.comidanamedida.domain.model.Food
+import com.elevii.comidanamedida.ui.home.events.SaveMeasurementEvent
 import com.elevii.comidanamedida.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -54,6 +55,7 @@ class HomeFragment : Fragment() {
         observeFoods()
         initializeListeners()
         observeResultCalculateFood()
+        observeSaveMeasurementError()
     }
 
     private fun observeResultCalculateFood() {
@@ -78,17 +80,17 @@ class HomeFragment : Fragment() {
         }
 
         binding.btSaveResult.setOnClickListener {
-            Toast.makeText(
-                requireContext(),
-                "Essa funcionalidade estará disponível em breve!",
-                Toast.LENGTH_LONG
-            ).show()
+            saveMeasurement()
         }
 
         binding.btClearResult.setOnClickListener {
             binding.slFoodType.text.clear()
             clearFoodSelected()
         }
+    }
+
+    private fun saveMeasurement() {
+        viewModel.saveMeasurement()
     }
 
     private fun closeKeyboard() {
@@ -125,6 +127,26 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun observeSaveMeasurementError() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.saveMeasurementEvent.collect { event ->
+                    when (event) {
+                        is SaveMeasurementEvent.Success -> {
+                            showToast()
+                            clearFoodSelected()
+                        }
+                        is SaveMeasurementEvent.Error -> showError("Erro: ${event.message}")
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showToast() {
+        Toast.makeText(context, "Salvo com sucesso!", Toast.LENGTH_SHORT).show()
     }
 
     private fun showLoading() {

@@ -10,23 +10,23 @@ import javax.inject.Inject
 class CookedFoodMeasurementImpl @Inject constructor(private val dao: CookedFoodMeasurementDao) :
     CookedFoodMeasurementRepository {
 
-    override fun getAll(): List<CookedFoodMeasurement> {
+    override suspend fun getAll(): List<CookedFoodMeasurement> {
         return dao.getAll().map { it.toDomain() }
     }
 
-    override fun getByUuid(uuid: String): CookedFoodMeasurement {
+    override suspend fun getByUuid(uuid: String): CookedFoodMeasurement {
         return dao.getByUuid(uuid).toDomain()
     }
 
-    override fun insert(cookedFoodMeasurement: CookedFoodMeasurement) {
+    override suspend fun insert(cookedFoodMeasurement: CookedFoodMeasurement) {
         dao.insert(cookedFoodMeasurement.toEntity())
     }
 
-    override fun remove(cookedFoodMeasurement: CookedFoodMeasurement) {
+    override suspend fun remove(cookedFoodMeasurement: CookedFoodMeasurement) {
         dao.remove(cookedFoodMeasurement.toEntity())
     }
 
-    override fun removeAll() {
+    override suspend fun removeAll() {
         dao.removeAll()
     }
 }

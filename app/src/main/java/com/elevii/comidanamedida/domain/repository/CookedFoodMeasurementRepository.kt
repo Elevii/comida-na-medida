@@ -4,13 +4,13 @@ import com.elevii.comidanamedida.domain.model.CookedFoodMeasurement
 
 interface CookedFoodMeasurementRepository {
 
-    fun getAll(): List<CookedFoodMeasurement>
+    suspend fun getAll(): List<CookedFoodMeasurement>
 
-    fun getByUuid(uuid: String): CookedFoodMeasurement
+    suspend fun getByUuid(uuid: String): CookedFoodMeasurement
 
-    fun insert(cookedFoodMeasurement: CookedFoodMeasurement)
+    suspend fun insert(cookedFoodMeasurement: CookedFoodMeasurement)
 
-    fun remove(cookedFoodMeasurement: CookedFoodMeasurement)
+    suspend fun remove(cookedFoodMeasurement: CookedFoodMeasurement)
 
-    fun removeAll()
+    suspend fun removeAll()
 }
