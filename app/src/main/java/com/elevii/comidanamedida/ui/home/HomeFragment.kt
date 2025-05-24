@@ -70,7 +70,7 @@ class HomeFragment : Fragment() {
 
     private fun initializeListeners() {
         binding.slFoodType.setOnItemClickListener { adapterView, view, i, l ->
-            clearFoodSelected()
+            clearEnteredData()
             selectedFood = foodList[i]
         }
 
@@ -84,8 +84,7 @@ class HomeFragment : Fragment() {
         }
 
         binding.btClearResult.setOnClickListener {
-            binding.slFoodType.text.clear()
-            clearFoodSelected()
+            clearSelectedFood()
         }
     }
 
@@ -101,7 +100,12 @@ class HomeFragment : Fragment() {
         imm.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
-    private fun clearFoodSelected() {
+    private fun clearSelectedFood() {
+        binding.slFoodType.text.clear()
+        clearEnteredData()
+    }
+
+    private fun clearEnteredData() {
         binding.cvResult.visibility = View.GONE
         binding.tlWeightCookedFood.editText?.text?.clear()
         selectedFood = null
@@ -136,7 +140,7 @@ class HomeFragment : Fragment() {
                     when (event) {
                         is SaveMeasurementEvent.Success -> {
                             showToast()
-                            clearFoodSelected()
+                            clearSelectedFood()
                         }
                         is SaveMeasurementEvent.Error -> showError("Erro: ${event.message}")
                     }
