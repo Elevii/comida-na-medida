@@ -15,4 +15,9 @@
         android:name="com.elevii.comidanamedida.ui.historic.HistoricFragment"
         android:label="Histórico"
         tools:layout="@layout/fragment_historic" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.elevii.comidanamedida.ui.settings.SettingsFragment"
+        android:label="Configurações"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

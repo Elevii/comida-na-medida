@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.action_settings -> {
-                    Toast.makeText(this, "Disponível em breve!", Toast.LENGTH_SHORT).show()
+                   navController.navigate(R.id.settingsFragment)
 
                     false
                 }
