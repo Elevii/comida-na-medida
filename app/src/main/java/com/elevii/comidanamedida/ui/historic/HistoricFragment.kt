@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,6 +18,7 @@ import com.elevii.comidanamedida.databinding.DialogAlertErrorBinding
 import com.elevii.comidanamedida.databinding.FragmentHistoricBinding
 import com.elevii.comidanamedida.domain.model.CookedFoodMeasurement
 import com.elevii.comidanamedida.domain.model.Food
+import com.elevii.comidanamedida.ui.home.events.DeleteMeasurementEvent
 import com.elevii.comidanamedida.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.combine
@@ -48,6 +50,7 @@ class HistoricFragment : Fragment() {
 
         prepareUi()
         observeMeasurementsAndFoods()
+        observerDeleteMeasurement()
     }
 
     override fun onDestroyView() {
@@ -96,7 +99,14 @@ class HistoricFragment : Fragment() {
     }
 
     private fun loadHistoric(measurementList: List<CookedFoodMeasurement>?, foods: List<Food>) {
-        val adapter = HistoricAdapter(measurementList ?: emptyList(), foods, requireContext())
+        val adapter = HistoricAdapter(
+            measurementList ?: emptyList(),
+            foods,
+            requireContext()
+        ) { item ->
+            onMeasurementClicked(item)
+        }
+
         binding.rvHistoric.adapter = adapter
     }
 
@@ -106,6 +116,10 @@ class HistoricFragment : Fragment() {
 
     private fun hideLoading() {
         binding.progressBar.visibility = View.GONE
+    }
+
+    private fun onMeasurementClicked(measurement: CookedFoodMeasurement) {
+        viewModel.deleteMeasurement(measurement)
     }
 
     private fun showError(message: String) {
@@ -124,5 +138,24 @@ class HistoricFragment : Fragment() {
         }
 
         dialog.show()
+    }
+
+    private fun observerDeleteMeasurement() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.deleteMeasurementEvent.collect { event ->
+                    when (event) {
+                        is DeleteMeasurementEvent.Success -> {
+                            Toast.makeText(context, "Removido com sucesso!", Toast.LENGTH_SHORT).show()
+                        }
+                        is DeleteMeasurementEvent.Error -> {
+                            showError("Erro: ${event.message}")
+                        }
+
+                        else -> {}
+                    }
+                }
+            }
+        }
     }
 }

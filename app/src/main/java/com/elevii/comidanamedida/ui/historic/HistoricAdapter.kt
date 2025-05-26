@@ -12,7 +12,8 @@ import com.elevii.comidanamedida.domain.model.Food
 class HistoricAdapter(
     private val itemsHistoric: List<CookedFoodMeasurement>,
     private val foods: List<Food>,
-    private val context: Context
+    private val context: Context,
+    private val onItemClick: (CookedFoodMeasurement) -> Unit
 ) : RecyclerView.Adapter<HistoricAdapter.HistoricViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoricViewHolder {
@@ -42,6 +43,10 @@ class HistoricAdapter(
                 item.weightRaw,
                 item.weightCooked
             )
+
+            binding.ivDelete.setOnClickListener {
+                onItemClick(item)
+            }
         }
 
         private fun getFoodName(foodUuid: String): String {
