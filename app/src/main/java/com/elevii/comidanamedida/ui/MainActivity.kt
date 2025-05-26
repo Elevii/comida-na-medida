@@ -35,10 +35,9 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.action_historic -> {
-                    Toast.makeText(this, "Essa funcionalidade estará disponível em breve!", Toast.LENGTH_LONG).show()
-//                    navController.navigate(R.id.historicFragment)
+                   navController.navigate(R.id.historicFragment)
 
-                    false
+                    true
                 }
                 R.id.action_settings -> {
                     Toast.makeText(this, "Disponível em breve!", Toast.LENGTH_SHORT).show()

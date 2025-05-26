@@ -22,4 +22,6 @@
     <string name="error_invalid_weight">Informe um peso válido</string>
     <string name="error_title">Ops... Algo deu errado</string>
     <string name="confirm_button">OK</string>
+    <string name="item_historic">Cru: %2$.1fg -> Cozido: %1$.1fg</string>
+    <string name="historico_medicoes_label">Histórico de Medições</string>
 </resources>

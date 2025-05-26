@@ -1,10 +1,11 @@
 package com.elevii.comidanamedida.domain.repository
 
 import com.elevii.comidanamedida.domain.model.CookedFoodMeasurement
+import kotlinx.coroutines.flow.Flow
 
 interface CookedFoodMeasurementRepository {
 
-    suspend fun getAll(): List<CookedFoodMeasurement>
+    fun getAll(): Flow<List<CookedFoodMeasurement>>
 
     suspend fun getByUuid(uuid: String): CookedFoodMeasurement
 

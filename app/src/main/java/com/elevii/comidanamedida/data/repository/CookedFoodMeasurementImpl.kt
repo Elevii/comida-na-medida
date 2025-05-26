@@ -5,13 +5,17 @@ import com.elevii.comidanamedida.data.local.entity.toDomain
 import com.elevii.comidanamedida.data.local.entity.toEntity
 import com.elevii.comidanamedida.domain.model.CookedFoodMeasurement
 import com.elevii.comidanamedida.domain.repository.CookedFoodMeasurementRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class CookedFoodMeasurementImpl @Inject constructor(private val dao: CookedFoodMeasurementDao) :
     CookedFoodMeasurementRepository {
 
-    override suspend fun getAll(): List<CookedFoodMeasurement> {
-        return dao.getAll().map { it.toDomain() }
+    override fun getAll(): Flow<List<CookedFoodMeasurement>> {
+        return dao.getAll().map { list ->
+            list.map { it.toDomain()  }
+        }
     }
 
     override suspend fun getByUuid(uuid: String): CookedFoodMeasurement {

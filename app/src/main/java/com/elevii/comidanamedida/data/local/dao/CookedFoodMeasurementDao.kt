@@ -6,12 +6,13 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.elevii.comidanamedida.data.local.entity.CookedFoodMeasurementEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CookedFoodMeasurementDao {
 
     @Query("SELECT * FROM CookedFoodMeasurementEntity ORDER BY calculationDate")
-    suspend fun getAll(): List<CookedFoodMeasurementEntity>
+    fun getAll(): Flow<List<CookedFoodMeasurementEntity>>
 
     @Query("SELECT * FROM CookedFoodMeasurementEntity WHERE uuid = :uuid")
     suspend fun getByUuid(uuid: String): CookedFoodMeasurementEntity
