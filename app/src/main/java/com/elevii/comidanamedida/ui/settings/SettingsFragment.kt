@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import com.elevii.comidanamedida.databinding.FragmentSettingsBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import androidx.core.content.edit
+import androidx.navigation.fragment.findNavController
+import com.elevii.comidanamedida.R
 
 
 class SettingsFragment : Fragment() {
@@ -37,6 +39,11 @@ class SettingsFragment : Fragment() {
 
         binding.llChoiseThemeColor.setOnClickListener {
             showDialogChoiseTheme()
+        }
+
+        binding.llPrivacyPolicy.setOnClickListener {
+            val navController = findNavController()
+            navController.navigate(R.id.action_settingsFragment_to_privacyPolicyFragment)
         }
     }
 
