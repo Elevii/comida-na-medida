@@ -24,4 +24,9 @@
     <string name="confirm_button">OK</string>
     <string name="item_historic">Cru: %2$.1fg -> Cozido: %1$.1fg</string>
     <string name="historico_medicoes_label">Histórico de Medições</string>
+    <string name="label_settings">Configurações</string>
+    <string name="label_theme">Tema</string>
+    <string name="label_description_theme_mode">Selecione modo claro ou escuro</string>
+    <string name="label_privacy_policy">Políticas de Privacidade</string>
+    <string name="label_info_privacy_policy">Informações sobre a política de privacidade</string>
 </resources>

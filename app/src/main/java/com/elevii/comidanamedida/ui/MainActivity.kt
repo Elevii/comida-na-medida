@@ -1,7 +1,6 @@
 package com.elevii.comidanamedida.ui
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.ui.setupWithNavController
 import com.elevii.comidanamedida.R
@@ -31,18 +30,15 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.action_menu -> {
                     navController.navigate(R.id.menuFragment)
-
                     true
                 }
                 R.id.action_historic -> {
                    navController.navigate(R.id.historicFragment)
-
                     true
                 }
                 R.id.action_settings -> {
                    navController.navigate(R.id.settingsFragment)
-
-                    false
+                    true
                 }
                 else -> false
             }
