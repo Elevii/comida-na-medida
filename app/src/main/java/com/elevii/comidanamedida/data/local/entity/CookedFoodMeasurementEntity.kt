@@ -12,7 +12,8 @@ class CookedFoodMeasurementEntity(
     var weightRaw: Double,
     val weightBaked: Double,
     val calculationDate: LocalDateTime,
-    val uuidFood: String
+    val uuidFood: String,
+    val quantityDays: Int
 )
 
 fun CookedFoodMeasurementEntity.toDomain() = CookedFoodMeasurement(
@@ -20,7 +21,8 @@ fun CookedFoodMeasurementEntity.toDomain() = CookedFoodMeasurement(
     weightRaw = weightRaw,
     weightCooked = weightBaked,
     calculationDate = calculationDate,
-    uuidFood = uuidFood
+    uuidFood = uuidFood,
+    quantityDays = quantityDays
 )
 
 fun CookedFoodMeasurement.toEntity() = CookedFoodMeasurementEntity(
@@ -28,5 +30,6 @@ fun CookedFoodMeasurement.toEntity() = CookedFoodMeasurementEntity(
     weightRaw = weightRaw,
     weightBaked = weightCooked,
     calculationDate = calculationDate,
-    uuidFood = uuidFood
+    uuidFood = uuidFood,
+    quantityDays = quantityDays
 )

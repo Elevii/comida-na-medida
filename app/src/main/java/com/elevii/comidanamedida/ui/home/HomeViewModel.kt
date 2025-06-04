@@ -1,5 +1,7 @@
 package com.elevii.comidanamedida.ui.home
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.elevii.comidanamedida.data.exceptions.ErrorHandler
@@ -37,6 +39,9 @@ class HomeViewModel @Inject constructor(
     private val _saveMeasurementEvent = MutableSharedFlow<SaveMeasurementEvent>()
     val saveMeasurementEvent = _saveMeasurementEvent.asSharedFlow()
 
+    private val _quantity = MutableLiveData(0)
+    val quantity: LiveData<Int> = _quantity
+
     init {
         observeDb()
         refreshFoods()
@@ -70,7 +75,8 @@ class HomeViewModel @Inject constructor(
                     insertMeasurementUseCase(
                         measurement.weightRaw,
                         measurement.weightCooked,
-                        measurement.uuidFood
+                        measurement.uuidFood,
+                        measurement.quantityDays
                     )
                     _saveMeasurementEvent.emit(SaveMeasurementEvent.Success)
                 } catch (e: Exception) {
@@ -84,7 +90,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun calculateMeasurement(cookedWeight: Double, food: Food) {
+    fun calculateMeasurement(cookedWeight: Double, quantityDays: Int, food: Food) {
         val raw = food.calculateRawWeight(cookedWeight)
 
         _measurement.value = CookedFoodMeasurement(
@@ -92,11 +98,25 @@ class HomeViewModel @Inject constructor(
             weightRaw = raw,
             weightCooked = cookedWeight,
             calculationDate = LocalDateTime.now(),
-            uuidFood = food.uuid
+            uuidFood = food.uuid,
+            quantityDays = quantityDays
         )
     }
 
     fun clearMeasurement() {
         _measurement.value = null
+    }
+
+    fun increase() {
+        _quantity.value = (_quantity.value ?: 0) + 1
+    }
+
+    fun decrement() {
+        val current = _quantity.value ?: 0
+        if (current > 0) _quantity.value = current - 1
+    }
+
+    fun setQuantityManual(value: Int) {
+        _quantity.value = value
     }
 }

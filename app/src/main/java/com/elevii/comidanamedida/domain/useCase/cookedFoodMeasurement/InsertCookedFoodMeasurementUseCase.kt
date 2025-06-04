@@ -9,7 +9,8 @@ class InsertCookedFoodMeasurementUseCase(private val repository: CookedFoodMeasu
     suspend operator fun invoke(
         weightRaw: Double,
         weightCooked: Double,
-        uuidFood: String
+        uuidFood: String,
+        quantityDays: Int
     ) {
         repository.insert(
             CookedFoodMeasurement(
@@ -17,7 +18,8 @@ class InsertCookedFoodMeasurementUseCase(private val repository: CookedFoodMeasu
                 weightRaw = weightRaw,
                 weightCooked = weightCooked,
                 calculationDate = LocalDateTime.now(),
-                uuidFood = uuidFood
+                uuidFood = uuidFood,
+                quantityDays = quantityDays
             )
         )
     }

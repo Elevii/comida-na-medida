@@ -6,6 +6,7 @@
     <string name="hint_selecione_tipo_alimento">Selecione o tipo de alimento</string>
     <string name="label_alimento_cozido">Alimento cozido(g)</string>
     <string name="label_informe_peso_alimento_cozido">Informe o peso do alimento cozido</string>
+    <string name="label_informe_quantidade_dias">Informe a quantidade de dias</string>
     <string name="label_button_calcular">Calcular</string>
     <string name="label_title">Calcule a quantidade ideal do alimento</string>
     <string name="label_result_title">Você vai precisar de:</string>
@@ -18,6 +19,7 @@
     <string name="menu_historico">Histórico</string>
     <string name="menu_settings">Config.</string>
     <string name="result_format">%1$.0fg de %2$s</string>
+    <string name="result_days_format">%1$.0fg por dia (%2$d dias)</string>
     <string name="error_select_food">Selecione um tipo de alimento</string>
     <string name="error_invalid_weight">Informe um peso válido</string>
     <string name="error_title">Ops... Algo deu errado</string>
@@ -29,4 +31,7 @@
     <string name="label_description_theme_mode">Selecione modo claro ou escuro</string>
     <string name="label_privacy_policy">Políticas de Privacidade</string>
     <string name="label_info_privacy_policy">Informações sobre a política de privacidade</string>
+    <string name="quantity_days_label">Quantidade de dias</string>
+    <string name="incrementar">Incrementar</string>
+    <string name="decrementar">Decrementar</string>
 </resources>

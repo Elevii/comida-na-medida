@@ -99,8 +99,76 @@
                 android:inputType="numberDecimal"/>
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:id="@+id/tv_days_quantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_30"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/quantity_days_label"
+            android:textSize="@dimen/text_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tl_weight_cooked_food" />
+
+        <FrameLayout
+            android:id="@+id/stepperContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_days_quantity">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/et_day_quantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/label_informe_quantidade_dias"
+                app:boxBackgroundMode="outline"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_days_quantity">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/te_day_quantity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_gravity="end|center_vertical"
+                android:paddingStart="@dimen/spacing_10"
+                android:paddingEnd="@dimen/spacing_10">
+
+                <ImageButton
+                    android:id="@+id/buttonIncrement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/incrementar"
+                    android:src="@drawable/ic_round_arrow_drop_up" />
+
+                <ImageButton
+                    android:id="@+id/buttonDecrement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/decrementar"
+                    android:src="@drawable/ic_round_arrow_drop_down" />
+            </LinearLayout>
+
+        </FrameLayout>
+
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/bt_calculated"
+            android:id="@+id/bt_calculate"
             style="@style/Widget.App.CustomButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -108,7 +176,7 @@
             android:text="@string/label_button_calcular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tl_weight_cooked_food" />
+            app:layout_constraintTop_toBottomOf="@+id/stepperContainer" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_result"
@@ -118,7 +186,7 @@
             android:backgroundTint="@color/colorBackgroundInputs"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bt_calculated"
+            app:layout_constraintTop_toBottomOf="@+id/bt_calculate"
             android:visibility="gone"
             tools:visibility="visible">
 
@@ -144,13 +212,24 @@
                     android:id="@+id/tv_result_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="@dimen/spacing_15"
                     android:fontFamily="@font/poppins_extrabold"
                     android:textSize="@dimen/text_subtitle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_result_label"
                     tools:text="300g de carne" />
+
+                <TextView
+                    android:id="@+id/tv_days_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textSize="@dimen/text_label"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_result_text"
+                    tools:text="75g por dia (4 dias)" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/bt_save_result"
@@ -161,7 +240,7 @@
                     android:text="@string/label_button_salvar"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_result_text" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_days_result" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/bt_clear_result"

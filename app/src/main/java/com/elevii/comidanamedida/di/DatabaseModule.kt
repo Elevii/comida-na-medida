@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.elevii.comidanamedida.data.local.AppDatabase
 import com.elevii.comidanamedida.data.local.dao.CookedFoodMeasurementDao
 import com.elevii.comidanamedida.data.local.dao.FoodDao
+import com.elevii.comidanamedida.data.local.migrations.Migrations
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,6 +26,8 @@ class DatabaseModule {
             context,
             AppDatabase::class.java,
             "comidanamedida.db"
+        ).addMigrations(
+            Migrations.MIGRATION_1_2
         ).build()
     }
 

@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.graphics.drawable.toDrawable
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -24,6 +25,7 @@ import com.elevii.comidanamedida.domain.model.Food
 import com.elevii.comidanamedida.ui.home.events.SaveMeasurementEvent
 import com.elevii.comidanamedida.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -52,20 +54,16 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        loadQuantityDays()
         observeFoods()
         initializeListeners()
         observeResultCalculateFood()
         observeSaveMeasurementError()
+        observeQuantityDays()
     }
 
-    private fun observeResultCalculateFood() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.measurement.collect { measurement ->
-                    measurement?.let { showResult(it) }
-                }
-            }
-        }
+    private fun loadQuantityDays() {
+        binding.etDayQuantity.editText?.setText(DEFAULT_DAY_QUANTITY.toString())
     }
 
     private fun initializeListeners() {
@@ -74,7 +72,7 @@ class HomeFragment : Fragment() {
             selectedFood = foodList[i]
         }
 
-        binding.btCalculated.setOnClickListener {
+        binding.btCalculate.setOnClickListener {
             validateResult()
             closeKeyboard()
         }
@@ -86,10 +84,89 @@ class HomeFragment : Fragment() {
         binding.btClearResult.setOnClickListener {
             clearSelectedFood()
         }
+
+        binding.buttonIncrement.setOnClickListener {
+            binding.etDayQuantity.clearFocus()
+            viewModel.increase()
+        }
+
+        binding.buttonDecrement.setOnClickListener {
+            binding.etDayQuantity.clearFocus()
+            viewModel.decrement()
+        }
+
+        binding.teDayQuantity.doAfterTextChanged { text ->
+            val valor = text?.toString()?.takeIf { it.isNotBlank() }?.toIntOrNull()
+            if (valor != null) {
+                viewModel.setQuantityManual(valor)
+            }
+        }
     }
 
     private fun saveMeasurement() {
         viewModel.saveMeasurement()
+    }
+
+    private fun observeResultCalculateFood() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.measurement.collectLatest  { measurement ->
+                    measurement?.let { showResult(it) }
+                }
+            }
+        }
+    }
+
+    private fun observeFoods() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.foods.collect { resource ->
+                    when (resource) {
+                        is Resource.Loading -> setLoading(true)
+                        is Resource.Success -> {
+                            setLoading(false)
+                            foodList = resource.data ?: emptyList()
+                            loadDropdownFoods(foodList)
+                        }
+
+                        is Resource.Error -> {
+                            setLoading(false)
+                            showError(resource.message.toString())
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun observeSaveMeasurementError() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.saveMeasurementEvent.collect { event ->
+                    when (event) {
+                        is SaveMeasurementEvent.Success -> {
+                            showToast()
+                            clearSelectedFood()
+                        }
+
+                        is SaveMeasurementEvent.Error -> showError("Erro: ${event.message}")
+                    }
+                }
+            }
+        }
+    }
+
+    private fun observeQuantityDays() {
+        viewModel.quantity.observe(viewLifecycleOwner) { value ->
+            val currentText = binding.etDayQuantity.editText?.text.toString()
+            if (currentText != value.toString()) {
+                binding.etDayQuantity.editText?.setText(value.toString())
+            }
+        }
+    }
+
+    private fun showToast() {
+        Toast.makeText(context, "Salvo com sucesso!", Toast.LENGTH_SHORT).show()
     }
 
     private fun closeKeyboard() {
@@ -108,63 +185,16 @@ class HomeFragment : Fragment() {
     private fun clearEnteredData() {
         binding.cvResult.visibility = View.GONE
         binding.tlWeightCookedFood.editText?.text?.clear()
+        loadQuantityDays()
         selectedFood = null
         viewModel.clearMeasurement()
     }
 
-    private fun observeFoods() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.foods.collect { resource ->
-                    when (resource) {
-                        is Resource.Loading -> showLoading()
-                        is Resource.Success -> {
-                            hideLoading()
-                            foodList = resource.data ?: emptyList()
-                            loadDropdownFoods(foodList)
-                        }
-                        is Resource.Error -> {
-                            hideLoading()
-                            showError(resource.message.toString())
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private fun observeSaveMeasurementError() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.saveMeasurementEvent.collect { event ->
-                    when (event) {
-                        is SaveMeasurementEvent.Success -> {
-                            showToast()
-                            clearSelectedFood()
-                        }
-                        is SaveMeasurementEvent.Error -> showError("Erro: ${event.message}")
-                    }
-                }
-            }
-        }
-    }
-
-    private fun showToast() {
-        Toast.makeText(context, "Salvo com sucesso!", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun showLoading() {
-        binding.progressBar.visibility = View.VISIBLE
-        binding.dropdownMenu.isEnabled = false
-        binding.tlWeightCookedFood.isEnabled = false
-        binding.btCalculated.isEnabled = false
-    }
-
-    private fun hideLoading() {
-        binding.progressBar.visibility = View.GONE
-        binding.dropdownMenu.isEnabled = true
-        binding.tlWeightCookedFood.isEnabled = true
-        binding.btCalculated.isEnabled = true
+    private fun setLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        binding.dropdownMenu.isEnabled = !isLoading
+        binding.tlWeightCookedFood.isEnabled = !isLoading
+        binding.btCalculate.isEnabled = !isLoading
     }
 
     private fun loadDropdownFoods(foodsList: List<Food>) {
@@ -177,31 +207,71 @@ class HomeFragment : Fragment() {
         binding.slFoodType.setAdapter(adapter)
     }
 
+    private fun isValidInput(): Boolean {
+        val cookedText =
+            binding.tlWeightCookedFood.editText?.text?.toString() ?: ""
+        val cooked = cookedText.toDoubleOrNull()
+        val food = selectedFood
+        val isValid: Boolean
+
+        if (food == null) {
+            binding.tlWeightCookedFood.error = null
+            binding.dropdownMenu.error = getString(R.string.error_select_food)
+            isValid = false
+        } else if (cooked == null) {
+            binding.dropdownMenu.error = null
+            binding.tlWeightCookedFood.error = getString(R.string.error_invalid_weight)
+            isValid = false
+        } else {
+            binding.dropdownMenu.error = null
+            binding.tlWeightCookedFood.error = null
+            isValid = true
+        }
+
+        return isValid
+    }
+
     private fun validateResult() {
         val cookedText =
             binding.tlWeightCookedFood.editText?.text?.toString() ?: ""
         val cooked = cookedText.toDoubleOrNull()
         val food = selectedFood
 
-        if (food == null) {
-            binding.tlWeightCookedFood.error = null
-            binding.dropdownMenu.error = getString(R.string.error_select_food)
-        } else if (cooked == null) {
-            binding.dropdownMenu.error = null
-            binding.tlWeightCookedFood.error = getString(R.string.error_invalid_weight)
-        } else {
-            binding.dropdownMenu.error = null
-            binding.tlWeightCookedFood.error = null
-            viewModel.calculateMeasurement(cooked, food)
+        var quantity = binding.etDayQuantity.editText?.text?.toString()
+
+        if (quantity.isNullOrEmpty()) {
+            quantity = DEFAULT_DAY_QUANTITY.toString()
+        }
+
+        if (isValidInput()) {
+            viewModel.calculateMeasurement(cooked!!, quantity.toInt(), food!!)
         }
     }
 
     private fun showResult(measurement: CookedFoodMeasurement) {
+        val measuremntDays: Double
+
+        if (measurement.quantityDays > 0) {
+            measuremntDays = measurement.weightRaw * measurement.quantityDays
+
+            binding.tvDaysResult.text = getString(
+                R.string.result_days_format,
+                measurement.weightRaw,
+                measurement.quantityDays
+            )
+
+            binding.tvDaysResult.visibility = View.VISIBLE
+        } else {
+            measuremntDays = measurement.weightRaw
+            binding.tvDaysResult.visibility = View.GONE
+        }
+
         binding.tvResultText.text = getString(
             R.string.result_format,
-            measurement.weightRaw,
+            measuremntDays,
             selectedFood?.name.orEmpty()
         )
+
         binding.cvResult.visibility = View.VISIBLE
     }
 
@@ -227,4 +297,9 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    companion object {
+        private const val DEFAULT_DAY_QUANTITY = 0
+    }
 }
+

@@ -7,5 +7,6 @@ class CookedFoodMeasurement(
     var weightRaw: Double,
     val weightCooked: Double,
     val calculationDate: LocalDateTime,
-    val uuidFood: String
+    val uuidFood: String,
+    val quantityDays: Int
 )

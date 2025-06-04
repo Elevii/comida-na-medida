@@ -14,7 +14,7 @@ import com.elevii.comidanamedida.data.local.entity.FoodEntity
         FoodEntity::class,
         CookedFoodMeasurementEntity::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = true
 )
 @TypeConverters(Converter::class)
