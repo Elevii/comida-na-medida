@@ -2,6 +2,7 @@ package com.elevii.comidanamedida.ui.historic
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.elevii.comidanamedida.R
@@ -38,11 +39,26 @@ class HistoricAdapter(
 
         fun bind(item: CookedFoodMeasurement) {
             binding.tvFood.text = getFoodName(item.uuidFood)
+
             binding.tvValues.text = context.getString(
                 R.string.item_historic,
-                item.weightRaw,
-                item.weightCooked
+                item.weightCooked,
+                item.weightRaw
             )
+
+            if (item.quantityDays > 0) {
+                val measuremntDays = item.weightRaw * item.quantityDays
+
+                binding.tvValuesDay.text = context.getString(
+                    R.string.result_days_historic_format,
+                    item.quantityDays,
+                    measuremntDays
+                )
+
+                binding.tvValuesDay.visibility = View.VISIBLE
+            } else {
+                binding.tvValuesDay.visibility = View.GONE
+            }
 
             binding.ivDelete.setOnClickListener {
                 onItemClick(item)

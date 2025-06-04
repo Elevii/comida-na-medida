@@ -19,11 +19,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.elevii.comidanamedida.R
 import com.elevii.comidanamedida.databinding.DialogAlertErrorBinding
+import com.elevii.comidanamedida.databinding.DialogResultBinding
 import com.elevii.comidanamedida.databinding.FragmentMenuBinding
 import com.elevii.comidanamedida.domain.model.CookedFoodMeasurement
 import com.elevii.comidanamedida.domain.model.Food
 import com.elevii.comidanamedida.ui.home.events.SaveMeasurementEvent
 import com.elevii.comidanamedida.util.Resource
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -73,14 +75,6 @@ class HomeFragment : Fragment() {
             closeKeyboard()
         }
 
-        binding.btSaveResult.setOnClickListener {
-            saveMeasurement()
-        }
-
-        binding.btClearResult.setOnClickListener {
-            clearSelectedFood()
-        }
-
         binding.buttonIncrement.setOnClickListener {
             binding.etDayQuantity.clearFocus()
             viewModel.increase()
@@ -106,7 +100,7 @@ class HomeFragment : Fragment() {
     private fun observeResultCalculateFood() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.measurement.collectLatest  { measurement ->
+                viewModel.measurement.collectLatest { measurement ->
                     measurement?.let { showResult(it) }
                 }
             }
@@ -179,7 +173,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun clearEnteredData() {
-        binding.cvResult.visibility = View.GONE
         binding.tlWeightCookedFood.editText?.text?.clear()
         loadQuantityDays()
         selectedFood = null
@@ -245,30 +238,52 @@ class HomeFragment : Fragment() {
     }
 
     private fun showResult(measurement: CookedFoodMeasurement) {
-        val measuremntDays: Double
+
+        val measuremntDays: Double = if (measurement.quantityDays > 0) {
+            measurement.weightRaw * measurement.quantityDays
+        } else {
+            measurement.weightRaw
+        }
+
+        showDialogResult(measurement, measuremntDays)
+    }
+
+    private fun showDialogResult(measurement: CookedFoodMeasurement, measuremntDays: Double) {
+        val dialogBinding = DialogResultBinding.inflate(LayoutInflater.from(requireContext()))
 
         if (measurement.quantityDays > 0) {
-            measuremntDays = measurement.weightRaw * measurement.quantityDays
-
-            binding.tvDaysResult.text = getString(
+            dialogBinding.tvDaysResult.text = getString(
                 R.string.result_days_format,
                 measurement.weightRaw,
                 measurement.quantityDays
             )
 
-            binding.tvDaysResult.visibility = View.VISIBLE
+            dialogBinding.tvDaysResult.visibility = View.VISIBLE
         } else {
-            measuremntDays = measurement.weightRaw
-            binding.tvDaysResult.visibility = View.GONE
+            dialogBinding.tvDaysResult.visibility = View.GONE
         }
 
-        binding.tvResultText.text = getString(
+        dialogBinding.tvResultText.text = getString(
             R.string.result_format,
             measuremntDays,
             selectedFood?.name.orEmpty()
         )
 
-        binding.cvResult.visibility = View.VISIBLE
+        val dialog = MaterialAlertDialogBuilder(requireContext())
+            .setView(dialogBinding.root)
+            .setCancelable(false)
+            .create()
+
+        dialogBinding.btSaveResult.setOnClickListener {
+            saveMeasurement()
+            dialog.dismiss()
+        }
+
+        dialogBinding.btClearResult.setOnClickListener {
+            clearSelectedFood()
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
     private fun showError(message: String) {
