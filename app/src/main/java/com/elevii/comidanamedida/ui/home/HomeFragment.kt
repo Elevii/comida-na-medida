@@ -38,10 +38,6 @@ class HomeFragment : Fragment() {
     private var foodList: List<Food> = emptyList()
     private var selectedFood: Food? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -67,7 +63,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun initializeListeners() {
-        binding.slFoodType.setOnItemClickListener { adapterView, view, i, l ->
+        binding.slFoodType.setOnItemClickListener { _, _, i, _ ->
             clearEnteredData()
             selectedFood = foodList[i]
         }
