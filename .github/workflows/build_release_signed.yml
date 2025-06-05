@@ -59,8 +59,12 @@ jobs:
 
       - name: Build Release APK
         run: |
-          ./gradlew assembleRelease
-          ./gradlew bundleRelease
+          ./gradlew assembleRelease \
+            -PAPI_KEY="${{ secrets.API_KEY }}" \
+            -PAPI_AUTHORIZATION="${{ secrets.API_AUTHORIZATION }}"
+          ./gradlew bundleRelease \
+            -PAPI_KEY="${{ secrets.API_KEY }}" \
+            -PAPI_AUTHORIZATION="${{ secrets.API_AUTHORIZATION }}"
 
       - name: Upload Release APK
         uses: actions/upload-artifact@v4
