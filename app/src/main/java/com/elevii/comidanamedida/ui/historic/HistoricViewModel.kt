@@ -7,7 +7,7 @@ import com.elevii.comidanamedida.domain.model.Food
 import com.elevii.comidanamedida.domain.useCase.cookedFoodMeasurement.GetAllCookedFoodMeasurementsUseCase
 import com.elevii.comidanamedida.domain.useCase.cookedFoodMeasurement.RemoveCookedFoodMeasurementUseCase
 import com.elevii.comidanamedida.domain.useCase.food.GetAllFoodsUseCase
-import com.elevii.comidanamedida.ui.home.events.DeleteMeasurementEvent
+import com.elevii.comidanamedida.ui.historic.events.DeleteMeasurementEvent
 import com.elevii.comidanamedida.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow

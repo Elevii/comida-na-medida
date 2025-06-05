@@ -1,4 +1,4 @@
-package com.elevii.comidanamedida.ui.home.events
+package com.elevii.comidanamedida.ui.historic.events
 
 sealed class DeleteMeasurementEvent {
     object Success : DeleteMeasurementEvent()

@@ -18,7 +18,7 @@ import com.elevii.comidanamedida.databinding.DialogAlertErrorBinding
 import com.elevii.comidanamedida.databinding.FragmentHistoricBinding
 import com.elevii.comidanamedida.domain.model.CookedFoodMeasurement
 import com.elevii.comidanamedida.domain.model.Food
-import com.elevii.comidanamedida.ui.home.events.DeleteMeasurementEvent
+import com.elevii.comidanamedida.ui.historic.events.DeleteMeasurementEvent
 import com.elevii.comidanamedida.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.combine
