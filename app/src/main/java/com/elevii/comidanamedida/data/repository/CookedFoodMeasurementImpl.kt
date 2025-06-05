@@ -14,7 +14,7 @@ class CookedFoodMeasurementImpl @Inject constructor(private val dao: CookedFoodM
 
     override fun getAll(): Flow<List<CookedFoodMeasurement>> {
         return dao.getAll().map { list ->
-            list.map { it.toDomain()  }
+            list.map { it.toDomain() }
         }
     }
 

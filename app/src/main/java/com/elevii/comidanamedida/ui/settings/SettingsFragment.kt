@@ -13,7 +13,6 @@ import androidx.core.content.edit
 import androidx.navigation.fragment.findNavController
 import com.elevii.comidanamedida.R
 
-
 class SettingsFragment : Fragment() {
 
     private var _binding: FragmentSettingsBinding? = null

@@ -18,8 +18,9 @@ class PrivacyPolicyFragment : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPrivacyPolicyBinding.inflate(inflater, container, false)
         return binding.root
@@ -31,7 +32,7 @@ class PrivacyPolicyFragment : Fragment() {
         binding.webviewPrivacyPolicy.webViewClient = WebViewClient()
         binding.webviewPrivacyPolicy.settings.javaScriptEnabled = true
 
-         binding.webviewPrivacyPolicy.loadUrl("https://elevii.github.io/politica-privacidade-comida-na-medida/")
+        binding.webviewPrivacyPolicy.loadUrl("https://elevii.github.io/politica-privacidade-comida-na-medida/")
 
         binding.ivArrowBack.setOnClickListener {
             val navController = findNavController()

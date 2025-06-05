@@ -14,7 +14,7 @@ class InsertCookedFoodMeasurementUseCase(private val repository: CookedFoodMeasu
     ) {
         repository.insert(
             CookedFoodMeasurement(
-                uuid =  UUID.randomUUID().toString() ,
+                uuid = UUID.randomUUID().toString(),
                 weightRaw = weightRaw,
                 weightCooked = weightCooked,
                 calculationDate = LocalDateTime.now(),

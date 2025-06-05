@@ -9,6 +9,5 @@ object Migrations {
         override fun migrate(db: SupportSQLiteDatabase) {
             db.execSQL("ALTER TABLE CookedFoodMeasurementEntity ADD COLUMN 'quantityDays' INTEGER NOT NULL DEFAULT 0 ")
         }
-
     }
 }

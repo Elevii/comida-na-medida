@@ -238,7 +238,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun showResult(measurement: CookedFoodMeasurement) {
-
         val measuremntDays: Double = if (measurement.quantityDays > 0) {
             measurement.weightRaw * measurement.quantityDays
         } else {
@@ -313,4 +312,3 @@ class HomeFragment : Fragment() {
         private const val DEFAULT_DAY_QUANTITY = 0
     }
 }
-

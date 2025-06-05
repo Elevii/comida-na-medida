@@ -32,14 +32,17 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.menuFragment)
                     true
                 }
+
                 R.id.action_historic -> {
-                   navController.navigate(R.id.historicFragment)
+                    navController.navigate(R.id.historicFragment)
                     true
                 }
+
                 R.id.action_settings -> {
-                   navController.navigate(R.id.settingsFragment)
+                    navController.navigate(R.id.settingsFragment)
                     true
                 }
+
                 else -> false
             }
         }
