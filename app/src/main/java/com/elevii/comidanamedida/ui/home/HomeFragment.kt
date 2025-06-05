@@ -184,6 +184,7 @@ class HomeFragment : Fragment() {
         binding.dropdownMenu.isEnabled = !isLoading
         binding.tlWeightCookedFood.isEnabled = !isLoading
         binding.btCalculate.isEnabled = !isLoading
+        binding.etDayQuantity.isEnabled = !isLoading
     }
 
     private fun loadDropdownFoods(foodsList: List<Food>) {

@@ -51,7 +51,11 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 getAllFoodsUseCase().collect { foods ->
-                    _foods.value = Resource.Success(foods)
+                    if (foods.isEmpty()) {
+                        _foods.value = Resource.Loading()
+                    } else {
+                        _foods.value = Resource.Success(foods)
+                    }
                 }
             } catch (e: Exception) {
                 _foods.value = Resource.Error(e.message.toString())
