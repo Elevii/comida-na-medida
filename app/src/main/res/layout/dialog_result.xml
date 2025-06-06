@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:backgroundTint="@color/colorBackgroundInputs"
+    app:strokeWidth="0dp"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/bt_calculate"
-    tools:visibility="visible">
+    app:layout_constraintTop_toBottomOf="@+id/bt_calculate">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_result_label"
-            tools:text="300g de carne" />
+            tools:text="284g de macarrão" />
 
         <TextView
             android:id="@+id/tv_days_result"
@@ -46,10 +46,11 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
             android:textSize="@dimen/text_label"
+            android:layout_marginTop="@dimen/spacing_10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_result_text"
-            tools:text="75g por dia (4 dias)" />
+            tools:text="Dias: 5\nPorção por dia: 125g (cozido)\nTotal necessário (cozido): 625g" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/bt_save_result"

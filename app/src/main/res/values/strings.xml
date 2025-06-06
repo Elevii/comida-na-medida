@@ -19,7 +19,7 @@
     <string name="menu_historico">Histórico</string>
     <string name="menu_settings">Config.</string>
     <string name="result_format">%1$.0fg de %2$s</string>
-    <string name="result_days_format">%1$.0fg por dia (%2$d dias)</string>
+    <string name="result_days_format">Dias: %1$d\nPorção por dia: %2$.0fg (cozido)\nTotal obtido: %3$.0fg (cozido)</string>
     <string name="result_days_historic_format">Para %1$d dias você precisará de %2$.0fg</string>
     <string name="error_select_food">Selecione um tipo de alimento</string>
     <string name="error_invalid_weight">Informe um peso válido</string>

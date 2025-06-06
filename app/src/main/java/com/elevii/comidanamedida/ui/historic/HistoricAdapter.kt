@@ -46,7 +46,7 @@ class HistoricAdapter(
                 item.weightRaw
             )
 
-            if (item.quantityDays > 0) {
+            if (item.quantityDays > 1) {
                 val measuremntDays = item.weightRaw * item.quantityDays
 
                 binding.tvValuesDay.text = context.getString(

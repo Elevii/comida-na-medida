@@ -251,11 +251,14 @@ class HomeFragment : Fragment() {
     private fun showDialogResult(measurement: CookedFoodMeasurement, measuremntDays: Double) {
         val dialogBinding = DialogResultBinding.inflate(LayoutInflater.from(requireContext()))
 
-        if (measurement.quantityDays > 0) {
+        if (measurement.quantityDays > 1) {
+            val totalCooked = measurement.weightCooked * measurement.quantityDays
+
             dialogBinding.tvDaysResult.text = getString(
                 R.string.result_days_format,
+                measurement.quantityDays,
                 measurement.weightRaw,
-                measurement.quantityDays
+                totalCooked
             )
 
             dialogBinding.tvDaysResult.visibility = View.VISIBLE
