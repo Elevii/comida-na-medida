@@ -257,7 +257,7 @@ class HomeFragment : Fragment() {
             dialogBinding.tvDaysResult.text = getString(
                 R.string.result_days_format,
                 measurement.quantityDays,
-                measurement.weightRaw,
+                measurement.weightCooked,
                 totalCooked
             )
 
