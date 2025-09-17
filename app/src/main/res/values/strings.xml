@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Comida na Medida</string>
-    <string name="app_name_splash">Comida na\nMedida</string>
+    <string name="app_name">Peso Certo</string>
+    <string name="app_name_splash">Peso Certo</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="label_tipo_alimento">Tipo de Alimento</string>
     <string name="hint_selecione_tipo_alimento">Selecione o tipo de alimento</string>
