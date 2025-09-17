@@ -44,7 +44,7 @@ class HomeViewModel @Inject constructor(
 
     init {
         observeDb()
-        refreshFoods()
+        //refreshFoods()
     }
 
     private fun observeDb() {
